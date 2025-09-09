@@ -3,61 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Website Builder</title>
+    <title>Website Builder with Button URL Options</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
-        :root {
-            --primary: #4e54c8;
-            --secondary: #8f94fb;
-            --light: #f5f7ff;
-            --dark: #333;
-            --success: #25d366;
-            --danger: #ff4d4d;
-            --warning: #ffcc00;
-            --info: #4d79ff;
-            --background: white;
-            --text: #333;
-            --border: #dde1f9;
-            --header-bg: #4e54c8;
-            --header-text: white;
-            --toolbar-bg: #f5f7ff;
-            --canvas-bg: #f9fafc;
-            --code-bg: #2d3748;
-            --code-text: #e2e8f0;
-        }
-        
         body {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: var(--text);
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: #333;
             min-height: 100vh;
             padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         
         .container {
+            width: 100%;
             max-width: 1200px;
-            margin: 0 auto;
-            background: var(--background);
+            background: white;
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-            display: flex;
-            flex-direction: column;
-            height: calc(100vh - 40px);
         }
         
         header {
-            background: var(--header-bg);
-            color: var(--header-text);
+            background: #4a6fa5;
+            color: white;
             padding: 20px;
             text-align: center;
-            flex-shrink: 0;
         }
         
         h1 {
@@ -72,17 +51,14 @@
         
         .main-content {
             display: flex;
-            flex: 1;
-            overflow: hidden;
+            min-height: 500px;
         }
         
         .toolbar {
             width: 250px;
-            background: var(--toolbar-bg);
+            background: #f0f5ff;
             padding: 20px;
-            border-right: 1px solid var(--border);
-            overflow-y: auto;
-            flex-shrink: 0;
+            border-right: 1px solid #dde1f9;
         }
         
         .toolbar-section {
@@ -92,7 +68,7 @@
         .toolbar-title {
             font-weight: 600;
             margin-bottom: 12px;
-            color: var(--primary);
+            color: #4a6fa5;
             display: flex;
             align-items: center;
         }
@@ -103,17 +79,16 @@
         
         .elements {
             display: flex;
-            flex-wrap: wrap;
+            flex-direction: column;
             gap: 10px;
         }
         
         .element {
-            width: 100%;
             padding: 12px;
-            background: var(--background);
-            border: 1px solid var(--border);
+            background: white;
+            border: 1px solid #dde1f9;
             border-radius: 8px;
-            cursor: move;
+            cursor: pointer;
             text-align: center;
             transition: all 0.2s;
         }
@@ -121,83 +96,39 @@
         .element:hover {
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            border-color: var(--primary);
-        }
-        
-        .upload-area {
-            border: 2px dashed var(--primary);
-            border-radius: 8px;
-            padding: 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: background 0.3s;
-            margin-top: 10px;
-        }
-        
-        .upload-area:hover {
-            background: rgba(78, 84, 200, 0.1);
-        }
-        
-        .upload-icon {
-            font-size: 2rem;
-            color: var(--primary);
-            margin-bottom: 10px;
-        }
-        
-        .theme-options {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        
-        .theme-option {
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-            cursor: pointer;
-            border: 2px solid transparent;
-            transition: all 0.2s;
-        }
-        
-        .theme-option:hover {
-            transform: scale(1.1);
-        }
-        
-        .theme-option.active {
-            border-color: var(--dark);
+            border-color: #4a6fa5;
         }
         
         .builder-area {
             flex: 1;
             padding: 20px;
-            background: var(--canvas-bg);
+            background: #f9fafc;
             display: flex;
             flex-direction: column;
-            min-width: 0;
         }
         
         .canvas {
             flex: 1;
-            background: var(--background);
-            border: 1px dashed var(--border);
+            background: white;
+            border: 2px dashed #dde1f9;
             border-radius: 8px;
             margin-bottom: 20px;
             padding: 20px;
             overflow: auto;
-            min-height: 200px;
+            min-height: 350px;
         }
         
         .canvas-element {
             margin-bottom: 15px;
             padding: 15px;
-            border: 1px solid var(--border);
+            border: 1px solid #e6eaf2;
             border-radius: 8px;
-            background: var(--background);
+            background: white;
             position: relative;
         }
         
         .canvas-element:hover {
-            box-shadow: 0 0 0 2px var(--primary);
+            box-shadow: 0 0 0 2px #4a6fa5;
         }
         
         .element-actions {
@@ -212,11 +143,11 @@
         }
         
         .element-actions button {
-            background: var(--primary);
+            background: #4a6fa5;
             color: white;
             border: none;
-            width: 25px;
-            height: 25px;
+            width: 28px;
+            height: 28px;
             border-radius: 4px;
             margin-left: 5px;
             cursor: pointer;
@@ -227,9 +158,8 @@
         
         .actions {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-shrink: 0;
+            justify-content: center;
+            gap: 15px;
         }
         
         .action-btn {
@@ -248,7 +178,7 @@
         }
         
         .preview-btn {
-            background: var(--info);
+            background: #4d79ff;
             color: white;
         }
         
@@ -257,7 +187,7 @@
         }
         
         .export-btn {
-            background: var(--success);
+            background: #25d366;
             color: white;
         }
         
@@ -267,12 +197,11 @@
         
         .code-output {
             width: 300px;
-            background: var(--code-bg);
-            color: var(--code-text);
+            background: #2d3748;
+            color: #e2e8f0;
             padding: 20px;
             overflow: auto;
             border-left: 1px solid #4a5568;
-            flex-shrink: 0;
         }
         
         .code-header {
@@ -289,7 +218,7 @@
         }
         
         .copy-btn {
-            background: var(--primary);
+            background: #4a6fa5;
             color: white;
             border: none;
             padding: 8px 15px;
@@ -301,8 +230,6 @@
             font-family: 'Fira Code', monospace;
             font-size: 0.9rem;
             line-height: 1.5;
-            white-space: pre-wrap;
-            word-break: break-all;
         }
         
         .image-preview {
@@ -315,54 +242,13 @@
         .footer {
             text-align: center;
             padding: 20px;
-            background: var(--toolbar-bg);
+            background: #f0f5ff;
             color: #6b7280;
             font-size: 0.9rem;
-            flex-shrink: 0;
         }
         
-        /* Preview Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .modal-content {
-            background: white;
-            border-radius: 10px;
-            width: 90%;
-            height: 90%;
-            overflow: auto;
-            position: relative;
-        }
-        
-        .close-modal {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            font-size: 1.5rem;
-            color: white;
-            background: var(--danger);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 1001;
-        }
-        
-        /* Link Editor Modal */
-        .link-editor {
+        /* URL Editor Modal */
+        .url-editor {
             display: none;
             position: fixed;
             top: 0;
@@ -375,7 +261,7 @@
             align-items: center;
         }
         
-        .link-editor-content {
+        .url-editor-content {
             background: white;
             padding: 25px;
             border-radius: 10px;
@@ -383,40 +269,57 @@
             max-width: 90%;
         }
         
-        .link-editor h3 {
+        .url-editor h3 {
             margin-bottom: 15px;
-            color: var(--primary);
+            color: #4a6fa5;
         }
         
-        .link-input {
+        .url-input {
             width: 100%;
             padding: 12px;
-            border: 1px solid var(--border);
+            border: 1px solid #dde1f9;
             border-radius: 5px;
             margin-bottom: 15px;
             font-size: 1rem;
         }
         
-        .link-buttons {
+        .url-buttons {
             display: flex;
             justify-content: flex-end;
             gap: 10px;
         }
         
-        .link-btn {
+        .url-btn {
             padding: 10px 20px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
         }
         
-        .link-cancel {
+        .url-cancel {
             background: #e0e0e0;
         }
         
-        .link-save {
-            background: var(--primary);
+        .url-save {
+            background: #4a6fa5;
             color: white;
+        }
+        
+        .custom-button {
+            display: inline-block;
+            background: #4a6fa5;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .custom-button:hover {
+            background: #3a5a80;
         }
         
         @media (max-width: 900px) {
@@ -431,82 +334,15 @@
             .code-output {
                 border-left: none;
                 border-top: 1px solid #4a5568;
-                height: 300px;
             }
-        }
-        
-        /* Theme-specific styles */
-        .theme-dark {
-            --primary: #2d3748;
-            --secondary: #4a5568;
-            --light: #1a202c;
-            --dark: #e2e8f0;
-            --background: #2d3748;
-            --text: #e2e8f0;
-            --border: #4a5568;
-            --header-bg: #1a202c;
-            --header-text: #e2e8f0;
-            --toolbar-bg: #2d3748;
-            --canvas-bg: #2d3748;
-            --code-bg: #1a202c;
-            --code-text: #e2e8f0;
-        }
-        
-        .theme-blue {
-            --primary: #2196f3;
-            --secondary: #03a9f4;
-            --light: #e3f2fd;
-            --dark: #0d47a1;
-            --background: white;
-            --text: #333;
-            --border: #bbdefb;
-            --header-bg: #2196f3;
-            --header-text: white;
-            --toolbar-bg: #e3f2fd;
-            --canvas-bg: #f9fafc;
-            --code-bg: #0d47a1;
-            --code-text: #e3f2fd;
-        }
-        
-        .theme-green {
-            --primary: #4caf50;
-            --secondary: #8bc34a;
-            --light: #e8f5e9;
-            --dark: #2e7d32;
-            --background: white;
-            --text: #333;
-            --border: #c8e6c9;
-            --header-bg: #4caf50;
-            --header-text: white;
-            --toolbar-bg: #e8f5e9;
-            --canvas-bg: #f9fafc;
-            --code-bg: #2e7d32;
-            --code-text: #e8f5e9;
-        }
-        
-        .custom-button {
-            display: inline-block;
-            background: var(--primary);
-            color: white;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        
-        .custom-button:hover {
-            background: var(--secondary);
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Advanced Website Builder</h1>
-            <p class="subtitle">Drag, drop, upload images, and export your website code</p>
+            <h1>Website Builder with Button URLs</h1>
+            <p class="subtitle">Create buttons with custom links and export clean code</p>
         </header>
         
         <div class="main-content">
@@ -517,16 +353,16 @@
                         <span>Page Elements</span>
                     </div>
                     <div class="elements">
-                        <div class="element" draggable="true" data-type="heading">
+                        <div class="element" data-type="heading">
                             <i class="fas fa-heading"></i> Heading
                         </div>
-                        <div class="element" draggable="true" data-type="paragraph">
+                        <div class="element" data-type="paragraph">
                             <i class="fas fa-paragraph"></i> Paragraph
                         </div>
-                        <div class="element" draggable="true" data-type="button">
+                        <div class="element" data-type="button">
                             <i class="fas fa-square"></i> Button
                         </div>
-                        <div class="element" draggable="true" data-type="image">
+                        <div class="element" data-type="image">
                             <i class="fas fa-image"></i> Image
                         </div>
                     </div>
@@ -537,36 +373,18 @@
                         <i class="fas fa-upload"></i>
                         <span>Upload Images</span>
                     </div>
-                    <div class="upload-area" id="uploadArea">
-                        <div class="upload-icon">
-                            <i class="fas fa-cloud-upload-alt"></i>
-                        </div>
-                        <p>Drag & drop images here</p>
-                        <p>or</p>
-                        <p>Click to browse</p>
-                        <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+                    <div class="element" id="uploadArea">
+                        <i class="fas fa-cloud-upload-alt"></i> Upload Image
                     </div>
-                </div>
-                
-                <div class="toolbar-section">
-                    <div class="toolbar-title">
-                        <i class="fas fa-palette"></i>
-                        <span>Theme Options</span>
-                    </div>
-                    <div class="theme-options">
-                        <div class="theme-option active" style="background: linear-gradient(135deg, #4e54c8 0%, #8f94fb 100%);" data-theme="default"></div>
-                        <div class="theme-option" style="background: linear-gradient(135deg, #2d3748 0%, #4a5568 100%);" data-theme="dark"></div>
-                        <div class="theme-option" style="background: linear-gradient(135deg, #2196f3 0%, #03a9f4 100%);" data-theme="blue"></div>
-                        <div class="theme-option" style="background: linear-gradient(135deg, #4caf50 0%, #8bc34a 100%);" data-theme="green"></div>
-                    </div>
+                    <input type="file" id="imageUpload" accept="image/*" style="display: none;">
                 </div>
             </div>
             
             <div class="builder-area">
                 <div class="canvas" id="canvas">
                     <h2>Your Website Canvas</h2>
-                    <p>Drag elements from the left sidebar to build your website.</p>
-                    <p>Upload images to include them in your design.</p>
+                    <p>Click on elements in the left sidebar to add them to your website.</p>
+                    <p>Buttons will prompt you for a URL when added.</p>
                 </div>
                 
                 <div class="actions">
@@ -591,28 +409,18 @@
         </div>
         
         <div class="footer">
-            <p>© 2023 Advanced Website Builder | Drag, drop, and create beautiful websites</p>
+            <p>© 2023 Website Builder | Create buttons with custom URLs</p>
         </div>
     </div>
 
-    <!-- Preview Modal -->
-    <div class="modal" id="previewModal">
-        <div class="close-modal" id="closePreview">
-            <i class="fas fa-times"></i>
-        </div>
-        <div class="modal-content" id="previewContent">
-            <!-- Preview content will be inserted here -->
-        </div>
-    </div>
-
-    <!-- Link Editor Modal -->
-    <div class="link-editor" id="linkEditor">
-        <div class="link-editor-content">
-            <h3>Edit Button Link</h3>
-            <input type="text" class="link-input" id="linkInput" placeholder="https://example.com">
-            <div class="link-buttons">
-                <button class="link-btn link-cancel" id="linkCancel">Cancel</button>
-                <button class="link-btn link-save" id="linkSave">Save</button>
+    <!-- URL Editor Modal -->
+    <div class="url-editor" id="urlEditor">
+        <div class="url-editor-content">
+            <h3>Enter Button URL</h3>
+            <input type="text" class="url-input" id="urlInput" placeholder="https://example.com" value="https://">
+            <div class="url-buttons">
+                <button class="url-btn url-cancel" id="urlCancel">Cancel</button>
+                <button class="url-btn url-save" id="urlSave">Save</button>
             </div>
         </div>
     </div>
@@ -626,65 +434,32 @@
             const previewBtn = document.getElementById('previewBtn');
             const copyBtn = document.getElementById('copyBtn');
             const codePreview = document.getElementById('codePreview');
-            const previewModal = document.getElementById('previewModal');
-            const closePreview = document.getElementById('closePreview');
-            const previewContent = document.getElementById('previewContent');
-            const linkEditor = document.getElementById('linkEditor');
-            const linkInput = document.getElementById('linkInput');
-            const linkCancel = document.getElementById('linkCancel');
-            const linkSave = document.getElementById('linkSave');
-            const themeOptions = document.querySelectorAll('.theme-option');
+            const urlEditor = document.getElementById('urlEditor');
+            const urlInput = document.getElementById('urlInput');
+            const urlCancel = document.getElementById('urlCancel');
+            const urlSave = document.getElementById('urlSave');
             
             let elements = [];
-            let currentEditingButton = null;
-            let currentTheme = 'default';
-            
-            // Make elements draggable
-            document.querySelectorAll('.element').forEach(element => {
-                element.addEventListener('dragstart', function(e) {
-                    e.dataTransfer.setData('text/plain', this.getAttribute('data-type'));
+            let currentButtonElement = null;
+
+            // Add element functionality
+            document.querySelectorAll('.element[data-type]').forEach(element => {
+                element.addEventListener('click', function() {
+                    const type = this.getAttribute('data-type');
+                    if (type === 'image') {
+                        imageUpload.click();
+                    } else if (type === 'button') {
+                        // Show URL editor for buttons
+                        showUrlEditor();
+                    } else {
+                        addElementToCanvas(type);
+                    }
                 });
-            });
-            
-            // Canvas drop zone
-            canvas.addEventListener('dragover', function(e) {
-                e.preventDefault();
-                this.style.borderColor = 'var(--primary)';
-            });
-            
-            canvas.addEventListener('dragleave', function() {
-                this.style.borderColor = 'var(--border)';
-            });
-            
-            canvas.addEventListener('drop', function(e) {
-                e.preventDefault();
-                this.style.borderColor = 'var(--border)';
-                
-                const elementType = e.dataTransfer.getData('text/plain');
-                addElementToCanvas(elementType);
             });
             
             // Upload area functionality
             uploadArea.addEventListener('click', function() {
                 imageUpload.click();
-            });
-            
-            uploadArea.addEventListener('dragover', function(e) {
-                e.preventDefault();
-                this.style.background = 'rgba(78, 84, 200, 0.1)';
-            });
-            
-            uploadArea.addEventListener('dragleave', function() {
-                this.style.background = '';
-            });
-            
-            uploadArea.addEventListener('drop', function(e) {
-                e.preventDefault();
-                this.style.background = '';
-                
-                if (e.dataTransfer.files.length > 0) {
-                    handleImageUpload(e.dataTransfer.files[0]);
-                }
             });
             
             imageUpload.addEventListener('change', function() {
@@ -696,16 +471,6 @@
             // Export button functionality
             exportBtn.addEventListener('click', function() {
                 generateCode();
-            });
-            
-            // Preview button functionality
-            previewBtn.addEventListener('click', function() {
-                generatePreview();
-            });
-            
-            // Close preview modal
-            closePreview.addEventListener('click', function() {
-                previewModal.style.display = 'none';
             });
             
             // Copy button functionality
@@ -725,42 +490,28 @@
                 }, 2000);
             });
             
-            // Theme options functionality
-            themeOptions.forEach(option => {
-                option.addEventListener('click', function() {
-                    // Remove active class from all options
-                    themeOptions.forEach(opt => opt.classList.remove('active'));
-                    
-                    // Add active class to clicked option
-                    this.classList.add('active');
-                    
-                    // Apply the selected theme
-                    const theme = this.getAttribute('data-theme');
-                    currentTheme = theme;
-                    document.body.classList.remove('theme-dark', 'theme-blue', 'theme-green');
-                    if (theme !== 'default') {
-                        document.body.classList.add('theme-' + theme);
-                    }
-                });
+            // URL editor functionality
+            urlCancel.addEventListener('click', function() {
+                urlEditor.style.display = 'none';
             });
             
-            // Link editor functionality
-            linkCancel.addEventListener('click', function() {
-                linkEditor.style.display = 'none';
-            });
-            
-            linkSave.addEventListener('click', function() {
-                if (currentEditingButton) {
-                    const link = linkInput.value;
-                    if (link) {
-                        currentEditingButton.setAttribute('data-link', link);
-                    }
-                    linkEditor.style.display = 'none';
+            urlSave.addEventListener('click', function() {
+                const url = urlInput.value;
+                if (url) {
+                    addElementToCanvas('button', url);
+                    urlEditor.style.display = 'none';
+                } else {
+                    alert('Please enter a valid URL');
                 }
             });
             
+            function showUrlEditor() {
+                urlInput.value = 'https://';
+                urlEditor.style.display = 'flex';
+            }
+            
             // Function to add element to canvas
-            function addElementToCanvas(type) {
+            function addElementToCanvas(type, buttonUrl = '#') {
                 const id = 'element-' + Date.now();
                 let elementHtml = '';
                 
@@ -769,10 +520,9 @@
                         elementHtml = `
                             <div class="canvas-element" data-type="heading" data-id="${id}">
                                 <div class="element-actions">
-                                    <button onclick="editElement('${id}')"><i class="fas fa-edit"></i></button>
                                     <button onclick="deleteElement('${id}')"><i class="fas fa-trash"></i></button>
                                 </div>
-                                <h2 contenteditable="true">This is a Heading</h2>
+                                <h2 contenteditable="true">Your Heading Here</h2>
                             </div>
                         `;
                         break;
@@ -780,10 +530,9 @@
                         elementHtml = `
                             <div class="canvas-element" data-type="paragraph" data-id="${id}">
                                 <div class="element-actions">
-                                    <button onclick="editElement('${id}')"><i class="fas fa-edit"></i></button>
                                     <button onclick="deleteElement('${id}')"><i class="fas fa-trash"></i></button>
                                 </div>
-                                <p contenteditable="true">This is a paragraph. You can edit this text by clicking on it.</p>
+                                <p contenteditable="true">Your paragraph text goes here. You can edit this text by clicking on it.</p>
                             </div>
                         `;
                         break;
@@ -791,22 +540,10 @@
                         elementHtml = `
                             <div class="canvas-element" data-type="button" data-id="${id}">
                                 <div class="element-actions">
-                                    <button onclick="editElement('${id}')"><i class="fas fa-edit"></i></button>
+                                    <button onclick="editButtonUrl('${id}')"><i class="fas fa-edit"></i></button>
                                     <button onclick="deleteElement('${id}')"><i class="fas fa-trash"></i></button>
                                 </div>
-                                <button class="custom-button" data-link="#" onclick="editButtonLink(this)">Click Me</button>
-                            </div>
-                        `;
-                        break;
-                    case 'image':
-                        elementHtml = `
-                            <div class="canvas-element" data-type="image" data-id="${id}">
-                                <div class="element-actions">
-                                    <button onclick="editElement('${id}')"><i class="fas fa-edit"></i></button>
-                                    <button onclick="deleteElement('${id}')"><i class="fas fa-trash"></i></button>
-                                </div>
-                                <p>Image Placeholder</p>
-                                <p><small>Upload an image using the upload area</small></p>
+                                <a href="${buttonUrl}" class="custom-button" target="_blank" id="btn-${id}">Click Here</a>
                             </div>
                         `;
                         break;
@@ -815,10 +552,24 @@
                 elements.push({
                     id: id,
                     type: type,
-                    content: elementHtml
+                    content: elementHtml,
+                    buttonUrl: buttonUrl
                 });
                 
                 canvas.insertAdjacentHTML('beforeend', elementHtml);
+                
+                // Make the new button editable
+                if (type === 'button') {
+                    const buttonElement = document.getElementById(`btn-${id}`);
+                    buttonElement.addEventListener('dblclick', function() {
+                        this.contentEditable = true;
+                        this.focus();
+                    });
+                    
+                    buttonElement.addEventListener('blur', function() {
+                        this.contentEditable = false;
+                    });
+                }
             }
             
             // Function to handle image upload
@@ -838,7 +589,6 @@
                     const elementHtml = `
                         <div class="canvas-element" data-type="image" data-id="${id}">
                             <div class="element-actions">
-                                <button onclick="editElement('${id}')"><i class="fas fa-edit"></i></button>
                                 <button onclick="deleteElement('${id}')"><i class="fas fa-trash"></i></button>
                             </div>
                             <img src="${imageUrl}" class="image-preview">
@@ -860,26 +610,6 @@
             
             // Function to generate code
             function generateCode() {
-                // Get the current theme colors
-                let primaryColor, secondaryColor;
-                switch(currentTheme) {
-                    case 'dark':
-                        primaryColor = '#2d3748';
-                        secondaryColor = '#4a5568';
-                        break;
-                    case 'blue':
-                        primaryColor = '#2196f3';
-                        secondaryColor = '#03a9f4';
-                        break;
-                    case 'green':
-                        primaryColor = '#4caf50';
-                        secondaryColor = '#8bc34a';
-                        break;
-                    default:
-                        primaryColor = '#4e54c8';
-                        secondaryColor = '#8f94fb';
-                }
-                
                 let htmlCode = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -887,211 +617,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Website</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        
         body {
-            background: linear-gradient(135deg, ${primaryColor} 0%, ${secondaryColor} 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
             color: #333;
-            min-height: 100vh;
-            padding: 20px;
-        }
-        
-        .website-container {
-            max-width: 1000px;
+            max-width: 1200px;
             margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            min-height: 100vh;
+        }
+        .container {
             background: white;
             border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-        }
-        
-        .content-section {
-            padding: 40px;
-            text-align: center;
-        }
-        
-        .image-container {
-            margin: 0 auto 30px;
-            max-width: 800px;
-            position: relative;
-        }
-        
-        .image-container img {
-            width: 100%;
-            border-radius: 10px;
+            padding: 30px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
-        
-        .heading-overlay {
-            position: absolute;
-            top: 20px;
-            left: 0;
-            right: 0;
-            color: white;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-            font-size: 2.5rem;
+        h1 {
+            color: #4a6fa5;
+            margin-bottom: 20px;
         }
-        
-        .text-content {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
+        p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
         }
-        
-        .text-content p {
-            font-size: 1.2rem;
-            line-height: 1.6;
-            margin-bottom: 30px;
-            color: #444;
-        }
-        
-        .button-container {
-            margin-top: 20px;
-        }
-        
         .custom-button {
             display: inline-block;
-            background: ${primaryColor};
+            background: #4a6fa5;
             color: white;
-            padding: 15px 35px;
+            padding: 12px 25px;
             border: none;
             border-radius: 8px;
             text-decoration: none;
             font-weight: bold;
-            font-size: 1.1rem;
             cursor: pointer;
             transition: background 0.3s;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin: 10px 0;
         }
-        
         .custom-button:hover {
-            background: ${secondaryColor};
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            background: #3a5a80;
         }
-        
-        @media (max-width: 768px) {
-            .content-section {
-                padding: 20px;
-            }
-            
-            .heading-overlay {
-                font-size: 1.8rem;
-                top: 10px;
-            }
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 15px 0;
         }
     </style>
 </head>
 <body>
-    <div class="website-container">
-        <div class="content-section">`;
+    <div class="container">\n`;
                 
-                // Check if we have an image to structure the content around it
-                const imageElement = elements.find(el => el.type === 'image' && el.imageUrl);
+                // Add elements to code
+                elements.forEach(element => {
+                    if (element.type === 'heading') {
+                        const content = document.querySelector(`[data-id="${element.id}"] h2`).innerText;
+                        htmlCode += `        <h1>${content}</h1>\n`;
+                    } else if (element.type === 'paragraph') {
+                        const content = document.querySelector(`[data-id="${element.id}"] p`).innerText;
+                        htmlCode += `        <p>${content}</p>\n`;
+                    } else if (element.type === 'button') {
+                        const buttonElem = document.getElementById(`btn-${element.id}`);
+                        const content = buttonElem.innerText;
+                        const url = element.buttonUrl;
+                        htmlCode += `        <a href="${url}" class="custom-button">${content}</a>\n`;
+                    } else if (element.type === 'image' && element.imageUrl) {
+                        htmlCode += `        <img src="${element.imageUrl}" alt="Uploaded Image">\n`;
+                    }
+                });
                 
-                if (imageElement) {
-                    // Get the image URL
-                    const imageUrl = imageElement.imageUrl;
-                    
-                    // Find heading text if exists
-                    let headingText = '';
-                    const headingElement = elements.find(el => el.type === 'heading');
-                    if (headingElement) {
-                        headingText = document.querySelector(`[data-id="${headingElement.id}"] h2`).innerText;
-                    }
-                    
-                    // Find paragraph text if exists
-                    let paragraphText = '';
-                    const paragraphElement = elements.find(el => el.type === 'paragraph');
-                    if (paragraphElement) {
-                        paragraphText = document.querySelector(`[data-id="${paragraphElement.id}"] p`).innerText;
-                    }
-                    
-                    // Find button if exists
-                    let buttonHtml = '';
-                    const buttonElement = elements.find(el => el.type === 'button');
-                    if (buttonElement) {
-                        const buttonElem = document.querySelector(`[data-id="${buttonElement.id}"] .custom-button`);
-                        const buttonText = buttonElem.innerText;
-                        const link = buttonElem.getAttribute('data-link') || '#';
-                        buttonHtml = `<a href="${link}" class="custom-button">${buttonText}</a>`;
-                    }
-                    
-                    htmlCode += `
-            <div class="image-container">
-                <img src="${imageUrl}" alt="Featured Image">
-                <div class="heading-overlay">
-                    <h1>${headingText}</h1>
-                </div>
-            </div>
-            <div class="text-content">
-                <p>${paragraphText}</p>
-                <div class="button-container">
-                    ${buttonHtml}
-                </div>
-            </div>`;
-                } else {
-                    // Fallback layout if no image is present
-                    elements.forEach(element => {
-                        if (element.type === 'heading') {
-                            const content = document.querySelector(`[data-id="${element.id}"] h2`).innerText;
-                            htmlCode += `
-            <h1 style="text-align: center; margin-bottom: 30px; font-size: 2.5rem;">${content}</h1>`;
-                        } else if (element.type === 'paragraph') {
-                            const content = document.querySelector(`[data-id="${element.id}"] p`).innerText;
-                            htmlCode += `
-            <p style="font-size: 1.2rem; line-height: 1.6; margin-bottom: 30px; text-align: center;">${content}</p>`;
-                        } else if (element.type === 'button') {
-                            const buttonElem = document.querySelector(`[data-id="${element.id}"] .custom-button`);
-                            const content = buttonElem.innerText;
-                            const link = buttonElem.getAttribute('data-link') || '#';
-                            htmlCode += `
-            <div style="text-align: center; margin-top: 20px;">
-                <a href="${link}" class="custom-button">${content}</a>
-            </div>`;
-                        } else if (element.type === 'image' && element.imageUrl) {
-                            htmlCode += `
-            <div style="text-align: center; margin: 30px 0;">
-                <img src="${element.imageUrl}" alt="Uploaded Image" style="max-width: 100%; border-radius: 10px; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);">
-            </div>`;
-                        }
-                    });
-                }
-                
-                htmlCode += `
-        </div>
-    </div>
+                htmlCode += `    </div>
 </body>
 </html>`;
                 
                 codePreview.textContent = htmlCode;
             }
             
-            // Function to generate preview
-            function generatePreview() {
-                generateCode();
-                const code = codePreview.textContent;
-                
-                // Create a preview document
-                const previewDoc = previewContent.contentDocument || previewContent.contentWindow.document;
-                previewDoc.open();
-                previewDoc.write(code);
-                previewDoc.close();
-                
-                // Show the preview modal
-                previewModal.style.display = 'flex';
-            }
-            
             // Make functions global for inline event handlers
-            window.editElement = function(id) {
-                alert('Edit functionality would open a dialog for element: ' + id);
-            };
-            
             window.deleteElement = function(id) {
                 if (confirm('Are you sure you want to delete this element?')) {
                     const element = document.querySelector(`[data-id="${id}"]`);
@@ -1104,11 +706,24 @@
                 }
             };
             
-            window.editButtonLink = function(button) {
-                currentEditingButton = button;
-                const currentLink = button.getAttribute('data-link') || '';
-                linkInput.value = currentLink;
-                linkEditor.style.display = 'flex';
+            window.editButtonUrl = function(id) {
+                const element = elements.find(el => el.id === id);
+                if (element) {
+                    currentButtonElement = element;
+                    urlInput.value = element.buttonUrl;
+                    urlEditor.style.display = 'flex';
+                    
+                    // Update URL when saved
+                    urlSave.onclick = function() {
+                        const newUrl = urlInput.value;
+                        if (newUrl) {
+                            element.buttonUrl = newUrl;
+                            const buttonElem = document.getElementById(`btn-${id}`);
+                            buttonElem.href = newUrl;
+                            urlEditor.style.display = 'none';
+                        }
+                    };
+                }
             };
         });
     </script>
